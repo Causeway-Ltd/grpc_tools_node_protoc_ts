@@ -11,6 +11,7 @@ const TplEngine_1 = require("../TplEngine");
 var ProtoMsgTsdFormatter;
 (function (ProtoMsgTsdFormatter) {
     function format(descriptor, exportMap) {
+        var _a;
         const fileName = descriptor.getName();
         const packageName = descriptor.getPackage();
         const imports = [];
@@ -44,10 +45,12 @@ var ProtoMsgTsdFormatter;
         TplEngine_1.TplEngine.registerHelper("formatName", (str) => {
             return Utility_1.Utility.formatOccupiedName(str);
         });
+        const deprecated = ((_a = descriptor.getOptions()) === null || _a === void 0 ? void 0 : _a.getDeprecated()) === true;
         return {
             packageName,
             fileName,
             imports,
+            deprecated,
             messages,
             extensions,
             enums,

@@ -42,4 +42,4 @@ cp -r ./src/grpc/proto/* build/grpc/proto
 mkdir -p build/grpcjs/proto
 cp -r ./src/grpcjs/proto/* build/grpcjs/proto
 
-tsc
+./node_modules/.bin/tsc

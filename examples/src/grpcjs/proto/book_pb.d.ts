@@ -5,9 +5,10 @@
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
-
 export class Book extends jspb.Message { 
+    /** @deprecated */ 
     getIsbn(): number;
+    /** @deprecated */ 
     setIsbn(value: number): Book;
     getTitle(): string;
     setTitle(value: string): Book;
@@ -119,6 +120,7 @@ export namespace BookList {
     }
 }
 
+/** @deprecated */ 
 export class BookStore extends jspb.Message { 
     getName(): string;
     setName(value: string): BookStore;
@@ -175,9 +177,13 @@ export namespace SpecialCases {
 
 export class OneOfSample extends jspb.Message { 
 
+    /** @deprecated */ 
     hasA1(): boolean;
+    /** @deprecated */ 
     clearA1(): void;
+    /** @deprecated */ 
     getA1(): boolean;
+    /** @deprecated */ 
     setA1(value: boolean): OneOfSample;
 
     hasB1(): boolean;
@@ -438,5 +444,7 @@ export enum EnumSample {
     RUNNING = 1,
     CASETEST = 2,
     HOW_ABOUT_THIS = 3,
+    /** @deprecated */ 
     ALLLOWERCASE = 4,
 }
+

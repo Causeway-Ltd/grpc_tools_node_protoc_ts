@@ -3,7 +3,7 @@ syntax = "proto3";
 package com.book;
 
 message Book {
-    int64 isbn = 1;
+    int64 isbn = 1 [deprecated=true];
     string title = 2;
     string author = 3;
 }
@@ -34,6 +34,7 @@ service BookService {
 }
 
 message BookStore {
+    option deprecated = true;
     string name = 1;
     map<int64, string> books = 2;
 }
@@ -45,7 +46,7 @@ enum EnumSample {
     RUNNING = 1;
     caseTest = 2;
     How_about_This = 3;
-    alllowercase = 4;
+    alllowercase = 4 [deprecated=true];
 }
 
 // Message with reserved keywords
@@ -60,7 +61,7 @@ message SpecialCases {
 
 message OneOfSample {
     oneof singleword {
-        bool a1 = 1;
+        bool a1 = 1 [deprecated=true];
         bool b1 = 2;
     }
 

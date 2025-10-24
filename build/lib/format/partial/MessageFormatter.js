@@ -20,6 +20,7 @@ var MessageFormatter;
         formattedEnumListStr: [],
         formattedOneofListStr: [],
         formattedExtListStr: [],
+        deprecated: false,
     });
     MessageFormatter.defaultMessageFieldType = JSON.stringify({
         snakeCaseName: "",
@@ -52,6 +53,7 @@ var MessageFormatter;
         return Utility_1.Utility.isProto2(descriptor);
     }
     function format(fileName, exportMap, descriptor, indent, fileDescriptor) {
+        var _a, _b;
         const nextIndent = `${indent}    `;
         const messageData = JSON.parse(MessageFormatter.defaultMessageType);
         const proto3OptionalFields = new Set();
@@ -60,6 +62,7 @@ var MessageFormatter;
                 proto3OptionalFields.add(field.getName());
             }
         });
+        messageData.deprecated = ((_a = descriptor.getOptions()) === null || _a === void 0 ? void 0 : _a.getDeprecated()) === true;
         messageData.messageName = descriptor.getName();
         messageData.oneofDeclList = descriptor.getOneofDeclList().filter((oneOfDecl) => {
             const name = oneOfDecl.getName();
@@ -72,6 +75,7 @@ var MessageFormatter;
         }
         const oneofGroups = [];
         descriptor.getFieldList().forEach((field) => {
+            var _a;
             const fieldData = JSON.parse(MessageFormatter.defaultMessageFieldType);
             if (field.hasOneofIndex()) {
                 const oneOfIndex = field.getOneofIndex();
@@ -93,6 +97,7 @@ var MessageFormatter;
             fieldData.type = field.getType();
             fieldData.isMapField = false;
             fieldData.canBeUndefined = false;
+            fieldData.deprecated = ((_a = field.getOptions()) === null || _a === void 0 ? void 0 : _a.getDeprecated()) === true;
             let exportType;
             const fullTypeName = field.getTypeName().slice(1);
             if (fieldData.type === FieldTypesFormatter_1.MESSAGE_TYPE) {
@@ -219,12 +224,14 @@ var MessageFormatter;
         TplEngine_1.TplEngine.registerHelper("oneOfName", (oneOfDecl) => {
             return Utility_1.Utility.oneOfName(oneOfDecl.getName());
         });
+        const deprecated = ((_b = descriptor.getOptions()) === null || _b === void 0 ? void 0 : _b.getDeprecated()) === true;
         return {
             indent,
             objectTypeName: exports.OBJECT_TYPE_NAME,
             BYTES_TYPE: FieldTypesFormatter_1.BYTES_TYPE,
             MESSAGE_TYPE: FieldTypesFormatter_1.MESSAGE_TYPE,
             message: messageData,
+            deprecated,
         };
     }
     MessageFormatter.format = format;

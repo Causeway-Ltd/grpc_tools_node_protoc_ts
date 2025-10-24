@@ -9,6 +9,7 @@ export namespace ExtensionFormatter {
         indent: string;
         extensionName: string;
         fieldType: string;
+        deprecated: boolean;
     }
 
     export function format(fileName: string,
@@ -25,10 +26,13 @@ export namespace ExtensionFormatter {
             extension.getType(), extension.getTypeName().slice(1), fileName, exportMap,
         );
 
+        const deprecated = extension.getOptions()?.getDeprecated() || false;
+
         return {
             indent,
             extensionName,
             fieldType,
+            deprecated,
         };
     }
 

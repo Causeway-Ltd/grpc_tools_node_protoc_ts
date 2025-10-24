@@ -1,6 +1,11 @@
-
+{{~#if deprecated}}
+{{{indent}}}/** @deprecated */ 
+{{/if}}
 {{{indent}}}export enum {{{enumName}}} {
 {{#each values}}
-{{{indent}}}    {{{@key}}} = {{{this}}},
+{{~#if deprecated}}
+{{{indent}}}    /** @deprecated */ 
+{{/if}}
+{{{indent}}}    {{{@key}}} = {{{index}}},
 {{/each}}
 {{{indent}}}{{curlyRight}}

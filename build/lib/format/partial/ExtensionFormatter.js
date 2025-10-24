@@ -6,15 +6,18 @@ const FieldTypesFormatter_1 = require("./FieldTypesFormatter");
 var ExtensionFormatter;
 (function (ExtensionFormatter) {
     function format(fileName, exportMap, extension, indent) {
+        var _a;
         let extensionName = Utility_1.Utility.snakeToCamel(extension.getName());
         if (Utility_1.Utility.isReserved(extensionName)) {
             extensionName = `pb_${extensionName}`;
         }
         const fieldType = FieldTypesFormatter_1.FieldTypesFormatter.getFieldType(extension.getType(), extension.getTypeName().slice(1), fileName, exportMap);
+        const deprecated = ((_a = extension.getOptions()) === null || _a === void 0 ? void 0 : _a.getDeprecated()) || false;
         return {
             indent,
             extensionName,
             fieldType,
+            deprecated,
         };
     }
     ExtensionFormatter.format = format;

@@ -25,6 +25,7 @@ export namespace MessageFormatter {
         formattedEnumListStr: EnumFormatter.IEnumModel[];
         formattedOneofListStr: OneofFormatter.IOneofModel[];
         formattedExtListStr: ExtensionFormatter.IExtensionModel[];
+        deprecated: boolean;
     }
 
     export const defaultMessageType = JSON.stringify({
@@ -36,9 +37,11 @@ export namespace MessageFormatter {
         formattedEnumListStr: [],
         formattedOneofListStr: [],
         formattedExtListStr: [],
+        deprecated: false,
     } as IMessageType);
 
     export interface IMessageFieldType {
+        deprecated: boolean;
         snakeCaseName: string;
         camelCaseName: string;
         camelUpperName: string;
@@ -83,6 +86,7 @@ export namespace MessageFormatter {
         BYTES_TYPE: number;
         MESSAGE_TYPE: number;
         message: IMessageType;
+        deprecated: boolean;
     }
 
     function hasFieldPresence(field: FieldDescriptorProto, descriptor: FileDescriptorProto): boolean {
@@ -121,6 +125,7 @@ export namespace MessageFormatter {
             }
         });
 
+        messageData.deprecated = descriptor.getOptions()?.getDeprecated() === true;
         messageData.messageName = descriptor.getName();
         messageData.oneofDeclList = descriptor.getOneofDeclList().filter((oneOfDecl) => {
             const name = oneOfDecl.getName();
@@ -159,6 +164,7 @@ export namespace MessageFormatter {
             fieldData.type = field.getType();
             fieldData.isMapField = false;
             fieldData.canBeUndefined = false;
+            fieldData.deprecated = field.getOptions()?.getDeprecated() === true;
 
             let exportType;
 
@@ -297,12 +303,15 @@ export namespace MessageFormatter {
             return Utility.oneOfName(oneOfDecl.getName());
         });
 
+        const deprecated = descriptor.getOptions()?.getDeprecated() === true;
+
         return {
             indent,
             objectTypeName: OBJECT_TYPE_NAME,
             BYTES_TYPE,
             MESSAGE_TYPE,
             message: messageData,
+            deprecated,
         };
     }
 

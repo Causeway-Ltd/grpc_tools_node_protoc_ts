@@ -1,40 +1,99 @@
-
 {{!-- message --}}
+{{#if message.deprecated}}
+{{{indent}}}/** @deprecated */ 
+{{/if}}
 {{{indent}}}export class {{{message.messageName}}} extends jspb.Message { {{!-- type class start --}}
 {{#each message.fields}}{{!-- fields start --}}
     {{~#if this.isMapField~}}{{!-- map spec start --}}
+        {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+        {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}Map(): jspb.Map<{{{this.mapFieldInfo.keyTypeName}}}, {{{this.mapFieldInfo.valueTypeName}}}>;
+        {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+        {{/if}}
 {{{../indent}}}    clear{{{this.camelUpperName}}}Map(): void;
     {{~else~}}{{!-- map spec else --}}
         {{~#if this.hasFieldPresence~}}{{!-- hasFieldPresence start --}}
+        {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+        {{/if}}
 {{{../indent}}}    has{{{formatName this.camelUpperName}}}(): boolean;
             {{#is this.hasClearMethodCreated false}}
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    {{printClearIfNotPresent this}}
             {{/is}}
         {{~/if~}}{{!-- hasFieldPresence end --}}
         {{~#if this.isRepeatField~}}{{!-- repeat start --}}
             {{~#is this.hasClearMethodCreated false~}}
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    {{printClearIfNotPresent this}}
             {{/is}}
             {{~#is this.type ../BYTES_TYPE~}}
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}List(): Array<Uint8Array | string>;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}List_asU8(): Array<Uint8Array>;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}List_asB64(): Array<string>;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    set{{{this.camelUpperName}}}List(value: Array<Uint8Array | string>): {{{../message.messageName}}};
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    {{printRepeatedAddMethod this "Uint8Array | string"}}
             {{~else~}}
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}List(): Array<{{{this.exportType}}}>;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    set{{{this.camelUpperName}}}List(value: Array<{{{this.exportType}}}>): {{{../message.messageName}}};
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    {{printRepeatedAddMethod this this.exportType}}
             {{~/is~}}
         {{~else~}}{{!-- repeat else --}}
             {{~#is this.type ../BYTES_TYPE~}}
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{formatName this.camelUpperName}}}(): Uint8Array | string;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}_asU8(): Uint8Array;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{this.camelUpperName}}}_asB64(): string;
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    set{{{formatName this.camelUpperName}}}(value: Uint8Array | string): {{{../message.messageName}}};
             {{~else~}}
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    get{{{formatName this.camelUpperName}}}(): {{{this.exportType}}}{{#if this.canBeUndefined}} | undefined{{/if}};
+                {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+                {{/if}}
 {{{../indent}}}    set{{{formatName this.camelUpperName}}}(value{{#is this.type ../MESSAGE_TYPE}}?{{/is}}: {{{this.exportType}}}): {{{../message.messageName}}};
             {{~/is~}}
         {{~/if~}}{{!-- repeat end --}}
@@ -42,6 +101,9 @@
 {{/each}}{{!-- fields end --}}
 {{~#if message.oneofDeclList~}}{{!-- oneofDeclList start --}}
 {{#each message.oneofDeclList}}
+    {{#if deprecated}}
+{{{../indent}}}    /** @deprecated */ 
+    {{/if}}
 {{{../indent}}}    get{{oneOfName this}}Case(): {{{../message.messageName}}}.{{oneOfName this}}Case;
 {{/each}}
 {{~/if~}}{{!-- oneofDeclList end --}}

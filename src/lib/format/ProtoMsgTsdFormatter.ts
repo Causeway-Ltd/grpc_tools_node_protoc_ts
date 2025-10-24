@@ -14,6 +14,7 @@ export namespace ProtoMsgTsdFormatter {
         packageName: string;
         fileName: string;
         imports: string[];
+        deprecated: boolean;
         messages: MessageFormatter.IMessageModel[];
         extensions: ExtensionFormatter.IExtensionModel[];
         enums: EnumFormatter.IEnumModel[];
@@ -58,10 +59,13 @@ export namespace ProtoMsgTsdFormatter {
             return Utility.formatOccupiedName(str);
         });
 
+        const deprecated = descriptor.getOptions()?.getDeprecated() === true;
+
         return {
             packageName,
             fileName,
             imports,
+            deprecated,
             messages,
             extensions,
             enums,
