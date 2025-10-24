@@ -1,10 +1,10 @@
 {
-  "name": "grpc_tools_node_protoc_ts",
+  "name": "cw_grpc_tools_node_protoc_ts",
   "version": "5.3.3",
-  "description": "Generate d.ts definitions for generated js files from grpc_tools_node_protoc",
+  "description": "Generate d.ts definitions for generated js files from grpc_tools_node_protoc, with fix to add @deprecated",
   "main": "build/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/tsc -p . && cp -r src/lib/template build/lib",
+    "build": "tsc -p . && cp -r src/lib/template build/lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/agreatfool/grpc_tools_node_protoc_ts.git"
+    "url": "git+https://github.com/Causeway-Ltd/grpc_tools_node_protoc_ts.git"
   },
   "keywords": [
     "TypeScript",
